@@ -57,12 +57,17 @@ public class SchedulerMain {
         JobDetail followUpJob = newJob(FetchForAdminNotificationJob.class).build();
 
         //TODO Use this cron for daily once email shooting:
-       /* Trigger trigger = newTrigger()
-                .startNow()
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 15 10 ? * *")) Shoots at 10.15 AM daily. Adjust accordingly...
-                .build();*/
-
         Trigger trigger = newTrigger()
+                .startNow()
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 15 18 ? * *")) // Shoots at 10.15 AM daily. Adjust accordingly
+                .build();
+
+        Trigger followUpTrigger = newTrigger()
+                .startNow()
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 15 05 ? * *"))
+                .build();
+
+       /* Trigger trigger = newTrigger()
                 .startNow()
                 .withSchedule(repeatSecondlyForever(300))
                 .build();
@@ -70,7 +75,7 @@ public class SchedulerMain {
         Trigger followUpTrigger = newTrigger()
                 .startNow()
                 .withSchedule(repeatSecondlyForever(300))
-                .build();
+                .build();*/
 
         scheduler.scheduleJob(jobDetail, trigger);
         scheduler.scheduleJob(followUpJob, followUpTrigger);
