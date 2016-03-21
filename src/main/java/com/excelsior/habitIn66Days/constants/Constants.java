@@ -40,6 +40,6 @@ public class Constants {
                 .toLocalDate();
     });
 
-    public final static List<Integer> followupDays = Arrays.asList(new Integer[]{1,6,20,44,65});
+    public final static List<Integer> followupDays = Arrays.asList(new Integer[]{0,7,21,45,66});
 
 }

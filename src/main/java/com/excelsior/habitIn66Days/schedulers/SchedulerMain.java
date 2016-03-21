@@ -21,6 +21,7 @@ import java.security.NoSuchAlgorithmException;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TimeZone;
 import java.util.concurrent.TimeoutException;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -55,16 +56,19 @@ public class SchedulerMain {
         scheduler.start();
         JobDetail jobDetail = newJob(PersistUsersInQueue.class).build();
         JobDetail followUpJob = newJob(FetchForAdminNotificationJob.class).build();
+        TimeZone indiaTimeZone = TimeZone.getTimeZone("Asia/Kolkata");
 
         //TODO Use this cron for daily once email shooting:
         Trigger trigger = newTrigger()
                 .startNow()
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 15 18 ? * *")) // Shoots at 10.15 AM daily. Adjust accordingly
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 16 18 ? * *")
+                .inTimeZone(indiaTimeZone)) // Shoots at 18.15 PM daily. Adjust accordingly
                 .build();
 
         Trigger followUpTrigger = newTrigger()
                 .startNow()
-                .withSchedule(CronScheduleBuilder.cronSchedule("0 15 05 ? * *"))
+                .withSchedule(CronScheduleBuilder.cronSchedule("0 15 05 ? * *")
+                .inTimeZone(indiaTimeZone))
                 .build();
 
        /* Trigger trigger = newTrigger()
