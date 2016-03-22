@@ -90,6 +90,7 @@ public class FetchForAdminNotificationJob implements Job {
                                 + "\n"
                                 + "Phone #"
                                 + document.getString("phoneNumber")
+                                +"\n"
                                 + usersDelimiter);
                     });
                     message.append(daysDelimiter);

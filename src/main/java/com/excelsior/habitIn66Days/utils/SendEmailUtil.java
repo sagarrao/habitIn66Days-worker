@@ -60,6 +60,7 @@ public class SendEmailUtil {
 
     private static void sendEmail(int dayNumber, String name, String recipientEmailId,Optional<Boolean> habitsProgramNotifiedForFirstTimeOpt){
 
+        logger.info("Sending email for-->"+name+" dayNumber--->"+dayNumber);
         //TODO Ideally this should be cached.. But right now this isn't that big a bottleneck so retaining it...
         FindIterable<Document> iterable = Constants.db.getCollection("emails").find(eq("day", Integer.toString(dayNumber)));
         iterable.forEach((Block<Document>) document -> {
@@ -85,7 +86,6 @@ public class SendEmailUtil {
         Optional<Boolean> habitsProgramNotifiedForFirstTimeOpt = Optional.ofNullable(document.getBoolean("habitsProgramNotifiedForFirstTime"));
         LocalDate programStartLocalDate = Constants.localDateFromDate.apply(document.getDate("habitsProgramEnrollmentDate"));
         int dayNumber = Constants.getDateDifference.apply(programStartLocalDate);
-        logger.info("Sending email for-->"+name);
         sendEmail(++dayNumber,name,emailId,habitsProgramNotifiedForFirstTimeOpt);
     }
 }
