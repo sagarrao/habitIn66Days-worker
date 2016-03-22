@@ -59,7 +59,7 @@ public class SchedulerMain {
         TimeZone indiaTimeZone = TimeZone.getTimeZone("Asia/Kolkata");
 
         //TODO Use this cron for daily once email shooting:
-       /* Trigger trigger = newTrigger()
+        Trigger trigger = newTrigger()
                 .startNow()
                 .withSchedule(CronScheduleBuilder.cronSchedule("0 16 18 ? * *")
                 .inTimeZone(indiaTimeZone)) // Shoots at 18.15 PM daily. Adjust accordingly
@@ -69,9 +69,9 @@ public class SchedulerMain {
                 .startNow()
                 .withSchedule(CronScheduleBuilder.cronSchedule("0 15 05 ? * *")
                 .inTimeZone(indiaTimeZone))
-                .build();*/
+                .build();
 
-        Trigger trigger = newTrigger()
+       /* Trigger trigger = newTrigger()
                 .startNow()
                 .withSchedule(repeatSecondlyForever(300))
                 .build();
@@ -80,7 +80,7 @@ public class SchedulerMain {
                 .startNow()
                 .withSchedule(repeatSecondlyForever(300))
                 .build();
-
+*/
         scheduler.scheduleJob(jobDetail, trigger);
         scheduler.scheduleJob(followUpJob, followUpTrigger);
     }
