@@ -65,7 +65,6 @@ public class FetchForAdminNotificationJob implements Job {
                 .subscribe(
                         m -> {
                             composeEmailMessage(m);
-                            logger.info("Message--->"+message);
                             SendEmailUtil.sendEmail(message);
                         });
     }
