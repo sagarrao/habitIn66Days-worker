@@ -6,6 +6,7 @@ import com.mongodb.client.MongoDatabase;
 
 import java.time.*;
 
+import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.Date;
 
@@ -32,7 +33,7 @@ public class Constants {
     public final static String anuragEmail = "anuraggupta86@gmail.com";
     public final static String anuragName = "Anurag";
 
-    public final static Function<LocalDate,Integer> getDateDifference = (date) -> Period.between(date, LocalDate.now()).getDays();
+    public final static Function<LocalDate,Integer> getDateDifference = (date) -> (int) ChronoUnit.DAYS.between(date, LocalDate.now());
 
     public final static Function<Date,LocalDate> localDateFromDate = (date -> {
         Instant instant = Instant.ofEpochMilli(date.getTime());
