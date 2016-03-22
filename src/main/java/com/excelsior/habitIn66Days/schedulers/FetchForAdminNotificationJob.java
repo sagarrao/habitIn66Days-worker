@@ -29,9 +29,9 @@ public class FetchForAdminNotificationJob implements Job {
 
     private StringBuffer message = new StringBuffer();
 
-    private final String daysDelimiter = "\n" + "#########################################################" + "\n";
+    private final String daysDelimiter = "\n\n" + "#########################################################" + "\n\n";
 
-    private final String usersDelimiter = "\n" + "*********************************************************" + "\n";
+    private final String usersDelimiter = "\n\n" + "*********************************************************" + "\n\n";
 
     private final static Logger logger = LoggerFactory.getLogger(FetchForAdminNotificationJob.class);
 
@@ -77,19 +77,19 @@ public class FetchForAdminNotificationJob implements Job {
             else {
                 usersFollowUpMap.forEach((dayNumber, documents) -> {
                     message = message.append("Day # " + dayNumber
-                            + " follow ups " + "\n");
+                            + " follow ups " + "\n\n");
                     documents.forEach(document -> {
                         Document nameDoc = (Document) (document.get("name"));
                         String name = nameDoc.getString("first").concat(" ").concat(nameDoc.getString("last"));
                         message.append("Name:"
                                 + name
-                                + "\n"
+                                + "\n\n"
                                 + "Habbit Working Upon:"
                                 + document.getString("habitWorkingUpn")
-                                + "\n"
+                                + "\n\n"
                                 + "Phone #"
                                 + document.getString("phoneNumber")
-                                +"\n"
+                                +"\n\n"
                                 + usersDelimiter);
                     });
                     message.append(daysDelimiter);
