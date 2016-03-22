@@ -9,6 +9,8 @@ import org.quartz.Job;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import rx.Observable;
 import rx.functions.Func1;
 import rx.schedulers.Schedulers;
@@ -31,10 +33,12 @@ public class FetchForAdminNotificationJob implements Job {
 
     private final String usersDelimiter = "\n" + "*********************************************************" + "\n";
 
+    private final static Logger logger = LoggerFactory.getLogger(FetchForAdminNotificationJob.class);
+
     private Func1<Document, Boolean> userToBeFollowedUp = (document) -> {
         LocalDate programStartLocalDate = Constants.localDateFromDate.apply(document.getDate("habitsProgramEnrollmentDate"));
         int dayNumber = Constants.getDateDifference.apply(programStartLocalDate);
-        return Constants.followupDays.contains(dayNumber) ? true : false;
+        return Constants.followupDays.contains(++dayNumber) ? true : false;
     };
 
 
@@ -50,7 +54,7 @@ public class FetchForAdminNotificationJob implements Job {
                     try {
                         LocalDate programStartLocalDate = Constants.localDateFromDate.apply(document.getDate("habitsProgramEnrollmentDate"));
                         AtomicInteger dayNumber = new AtomicInteger(Constants.getDateDifference.apply(programStartLocalDate));
-                        map.computeIfAbsent(dayNumber.get(), list -> new CopyOnWriteArrayList<Document>()).add(document);
+                        map.computeIfAbsent(dayNumber.incrementAndGet(), list -> new CopyOnWriteArrayList<>()).add(document);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -61,6 +65,7 @@ public class FetchForAdminNotificationJob implements Job {
                 .subscribe(
                         m -> {
                             composeEmailMessage(m);
+                            logger.info("Message--->"+message);
                             SendEmailUtil.sendEmail(message);
                         });
     }

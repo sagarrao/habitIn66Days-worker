@@ -21,7 +21,7 @@ import static com.mongodb.client.model.Filters.eq;
  */
 public class SendEmailUtil {
 
-    final static Logger logger = LoggerFactory.getLogger(SendEmailUtil.class);
+    private final static Logger logger = LoggerFactory.getLogger(SendEmailUtil.class);
 
     private static final SendGrid sendGrid = new SendGrid (Constants.sendGridApiKey);
 
