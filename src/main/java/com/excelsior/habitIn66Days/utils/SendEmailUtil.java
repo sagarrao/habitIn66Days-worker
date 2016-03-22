@@ -47,7 +47,7 @@ public class SendEmailUtil {
     }
 
     public static void sendEmail(StringBuffer message){
-        SendGrid.Email email = composeMessage(Constants.anuragName, Constants.anuragEmail, message.toString());
+        SendGrid.Email email = composeMessage(Constants.anuragName, "sagarmeansocean@gmail.com", message.toString());
         SendGrid.Response response = null;
         try {
             response = sendGrid.send(email);
