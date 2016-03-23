@@ -33,7 +33,7 @@ public class Constants {
     public final static String anuragEmail = "anuraggupta86@gmail.com";
     public final static String anuragName = "Anurag";
 
-    public final static Function<LocalDate,Integer> getDateDifference = (date) -> (int) ChronoUnit.DAYS.between(date, LocalDate.now());
+    public final static Function<LocalDate,Integer> getDateDifference = (date) -> (int) ChronoUnit.DAYS.between(date, LocalDate.now(ZoneId.of("Asia/Kolkata")));
 
     public final static Function<Date,LocalDate> localDateFromDate = (date -> {
         Instant instant = Instant.ofEpochMilli(date.getTime());
