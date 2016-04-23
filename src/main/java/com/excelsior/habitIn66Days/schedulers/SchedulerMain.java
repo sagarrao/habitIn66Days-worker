@@ -65,21 +65,21 @@ public class SchedulerMain {
                 .inTimeZone(indiaTimeZone)) // Shoots at 18.15 PM daily. Adjust accordingly
                 .build();
 
-        Trigger followUpTrigger = newTrigger()
+        /*Trigger followUpTrigger = newTrigger()
                 .startNow()
                 .withSchedule(CronScheduleBuilder.cronSchedule("0 15 05 ? * *")
                 .inTimeZone(indiaTimeZone))
-                .build();
+                .build();*/
 
         /*Trigger trigger = newTrigger()
                 .startNow()
                 .withSchedule(repeatSecondlyForever(600))
-                .build();
+                .build();*/
 
         Trigger followUpTrigger = newTrigger()
                 .startNow()
-                .withSchedule(repeatSecondlyForever(600))
-                .build();*/
+                .withSchedule(repeatSecondlyForever(1000))
+                .build();
         scheduler.scheduleJob(jobDetail, trigger);
         scheduler.scheduleJob(followUpJob, followUpTrigger);
     }

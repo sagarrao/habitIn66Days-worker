@@ -81,6 +81,10 @@ public class FetchForAdminNotificationJob implements Job {
                     documents.forEach(document -> {
                         Document nameDoc = (Document) (document.get("name"));
                         String name = nameDoc.getString("first").concat(" ").concat(nameDoc.getString("last"));
+                        Long phoneNumber = document.getLong("phoneNumber");
+                        logger.info("phoneNumber long: " + phoneNumber);
+                        String phoneStr = document.getString("phoneNumber");
+                        logger.info("phoneNumber String: " + phoneStr);
                         message.append("Name:"
                                 + name
                                 + "\n\n"
