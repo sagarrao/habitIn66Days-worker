@@ -78,7 +78,7 @@ public class SchedulerMain {
 
         Trigger followUpTrigger = newTrigger()
                 .startNow()
-                .withSchedule(repeatSecondlyForever(1000))
+                .withSchedule(repeatSecondlyForever(300))
                 .build();
         scheduler.scheduleJob(jobDetail, trigger);
         scheduler.scheduleJob(followUpJob, followUpTrigger);
