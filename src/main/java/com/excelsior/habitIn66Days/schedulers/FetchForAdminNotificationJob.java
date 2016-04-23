@@ -95,6 +95,7 @@ public class FetchForAdminNotificationJob implements Job {
                     message.append(daysDelimiter);
                 });
             }
+            logger.info("Email message for follow up mail::"+message.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }

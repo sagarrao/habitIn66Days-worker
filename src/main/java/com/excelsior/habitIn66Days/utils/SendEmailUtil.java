@@ -54,13 +54,12 @@ public class SendEmailUtil {
         } catch (SendGridException e) {
             e.printStackTrace();
         }
-        logger.info("email sent to-->" + Constants.anuragEmail);
-        System.out.println("Response status--->" + response.getMessage() );
+        logger.info("email sent to-->" + Constants.anuragEmail + " with response status::" + response.getMessage());
     }
 
     private static void sendEmail(int dayNumber, String name, String recipientEmailId,Optional<Boolean> habitsProgramNotifiedForFirstTimeOpt){
 
-        logger.info("Sending email for-->"+name+" dayNumber--->"+dayNumber);
+        logger.info("Sending email for-->"+name+" with dayNumber--->"+dayNumber);
         //TODO Ideally this should be cached.. But right now this isn't that big a bottleneck so retaining it...
         FindIterable<Document> iterable = Constants.db.getCollection("emails").find(eq("day", Integer.toString(dayNumber)));
         iterable.forEach((Block<Document>) document -> {
@@ -71,7 +70,7 @@ public class SendEmailUtil {
             }
             SendGrid.Email email = composeMessage(name,recipientEmailId,document);
             SendGrid.Response response = sendGrid.send(email);
-            System.out.println("Response status--->"+response.getMessage());
+            System.out.println("Response status for user::"+name+"is::"+response.getMessage());
         }
         catch (Exception e){
             logger.error("Exception thrown");
