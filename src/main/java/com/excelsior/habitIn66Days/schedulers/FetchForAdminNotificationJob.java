@@ -75,6 +75,7 @@ public class FetchForAdminNotificationJob implements Job {
             if (usersFollowUpMap.isEmpty())
                 message.append("A happy day today.. No follow ups!!");
             else {
+				logger.info("usersFollowUpMap::"+usersFollowUpMap);
                 usersFollowUpMap.forEach((dayNumber, documents) -> {
                     message = message.append("Day # " + dayNumber
                             + " follow ups " + "\n\n");
