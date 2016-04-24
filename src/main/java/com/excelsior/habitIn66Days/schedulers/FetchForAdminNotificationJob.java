@@ -89,7 +89,7 @@ public class FetchForAdminNotificationJob implements Job {
                                 + document.getString("habitWorkingUpn")
                                 + "\n\n"
                                 + "Phone #"
-                                + Long.toString(document.getLong("phoneNumber"))
+                                + document.getString("phoneNumber")
                                 +"\n\n"
                                 + usersDelimiter);
                     });
